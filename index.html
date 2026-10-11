@@ -128,6 +128,7 @@ select.in{padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xml
 /* buttons */
 .btn{position:relative;display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:12px 20px;margin-top:8px;border:0;border-radius:var(--r);background:var(--accent);color:var(--accent-ink);font-size:17px;font-weight:600;line-height:1.25;text-align:center;text-decoration:none;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 22px -12px rgba(38,44,150,.75),0 2px 4px rgba(17,22,80,.12);transition:transform .12s var(--ease),background-color .15s var(--ease)}
 .btn:active{transform:scale(.98);background:var(--accent-press)}
+.btn[aria-busy=true]{opacity:.75;pointer-events:none}
 .btn svg{flex:none;width:22px;height:22px;margin-right:10px}
 [dir=rtl] .btn svg{margin-right:0;margin-left:10px}
 @media (hover:hover) and (pointer:fine){.btn:hover{background:var(--accent-press)}}
@@ -260,7 +261,7 @@ footer .f{line-height:1.4}
         <input class="in" id="salesman" name="salesman" type="text" maxlength="40" autocomplete="off" autocapitalize="words" data-ph="salesPh" enterkeyhint="done" aria-label="Salesman’s name" style="display:none;margin-top:8px">
       </div>
       <div class="hp" aria-hidden="true"><label>Company website <input id="hp" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
-      <button class="btn" type="submit" data-t="cont">Continue</button>
+      <button class="btn" type="submit" id="contBtn" data-t="cont">Continue</button>
     </form>
   </section>
 
@@ -314,6 +315,15 @@ footer .f{line-height:1.4}
     <h2 id="h4s" tabindex="-1"></h2>
     <p class="lead" data-t="doneText"></p>
     <div class="links"><button class="link back" type="button" data-go="1" data-t="edit">Change my details</button></div>
+  </section>
+
+  <!-- Already registered -->
+  <section class="step done" id="s5" aria-labelledby="h5s">
+    <svg class="tick" viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="34"/><path d="M23 37.5l9 9 17-19"/></svg>
+    <h2 id="h5s" tabindex="-1" data-t="dupTitle">This number is already registered.</h2>
+    <p class="lead" data-t="dupText"></p>
+    <button class="btn" type="button" id="dupSave" data-t="dupSave">Save X8 Mobile again</button>
+    <div class="links"><button class="link back" type="button" id="dupOther" data-t="dupOther">Use a different number</button></div>
   </section>
 
   <noscript><p>Save our number: <b>+965 6656 8747</b> · <a href="https://wa.me/96566568747">WhatsApp</a></p></noscript>
@@ -448,7 +458,7 @@ footer .f{line-height:1.4}
     var shop = cleanShop($('shop').value);
     var g = $('greet');
     if (step === 1 && !shop) { g.textContent = t(h >= 4 && h < 12 ? 'morning' : h >= 12 && h < 17 ? 'afternoon' : 'evening'); return; }
-    if (step === 4) { g.textContent = ''; return; }
+    if (step >= 4) { g.textContent = ''; return; }
     fill(g, 'nice', shop || st.shop);
   }
 
@@ -473,7 +483,7 @@ footer .f{line-height:1.4}
 
   // ---- send to Sheet (sendBeacon survives opening WhatsApp) ----
   function send(status, saved) {
-    if (!CFG.sheet || CFG.sheet.indexOf('http') !== 0) return;
+    if (!CFG.sheet || CFG.sheet.indexOf('http') !== 0 || st.dup) return;
     var body = JSON.stringify({
       hp: $('hp').value, t: Date.now() - t0, status: status, saved: saved || '',
       shop: st.shop, phone: st.phone, area: st.area, shopNo: st.shopNo, salesman: st.salesman || '', lang: lang
@@ -487,15 +497,49 @@ footer .f{line-height:1.4}
     try { var x = new XMLHttpRequest(); x.open('POST', CFG.sheet, true); x.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8'); x.send(body); } catch (e) {}
   }
 
+  // ---- is this number already registered? (asked in the background while typing) ----
+  var checks = {}, cbn = 0;
+  function check(phone, done) {
+    var c = checks[phone];
+    if (c && c.r) { if (done) done(c.r); return; }
+    if (c) { if (done) c.wait.push(done); return; }
+    c = checks[phone] = { r: '', wait: done ? [done] : [] };
+    jsonp('check=' + encodeURIComponent(phone.replace(/\D/g, '')), function (res) {
+      c.r = (res && res.r) || 'unknown';
+      var w = c.wait; c.wait = [];
+      for (var i = 0; i < w.length; i++) w[i](c.r);
+    });
+  }
+  function jsonp(query, done) {
+    if (!CFG.sheet || CFG.sheet.indexOf('http') !== 0) { done(null); return; }
+    var name = 'x8cb' + (++cbn) + '_' + Date.now(), el = document.createElement('script'), fin = false;
+    function end(res) {
+      if (fin) return; fin = true;
+      try { delete window[name]; } catch (e) { window[name] = undefined; }
+      if (el.parentNode) el.parentNode.removeChild(el);
+      done(res);
+    }
+    window[name] = end;
+    el.onerror = function () { end(null); };
+    setTimeout(function () { end(null); }, 8000);
+    el.src = CFG.sheet + '?' + (query ? query + '&' : '') + 'cb=' + name;
+    document.head.appendChild(el);
+  }
+  var checkTimer = 0;
+  function checkSoon() {
+    clearTimeout(checkTimer);
+    checkTimer = setTimeout(function () { var p = fullPhone(); if (p.ok) check(p.e164); }, 300);
+  }
+
   // ---- steps ----
   var step = 1, errKey = '', autoTimer = 0, leftPage = false;
   function renderStep() {
-    for (var i = 1; i <= 4; i++) $('s' + i).className = 'step' + (i === 4 ? ' done' : '') + (i === step ? ' on' : '');
+    for (var i = 1; i <= 5; i++) $('s' + i).className = 'step' + (i >= 4 ? ' done' : '') + (i === step ? ' on' : '');
     document.body.className = (step > 1 ? 'later' : '') + (isAndroid ? ' android' : '');
     var dots = $('dots').getElementsByTagName('i');
     for (var d = 0; d < 3; d++) dots[d].className = (d + 1 === step ? 'on' : (d + 1 < step ? 'past' : ''));
     $('stepTxt').textContent = step < 4 ? t('step').replace('{n}', step) : '';
-    $('dots').style.display = step === 4 ? 'none' : '';
+    $('dots').style.display = step >= 4 ? 'none' : '';
     if (step === 2) fill($('h2s'), 's2');
     if (step === 3) {
       var msg = message(st.shop, st.area);
@@ -536,10 +580,11 @@ footer .f{line-height:1.4}
     $('salesSel').addEventListener('change', function () { if (showOther()) $('salesman').focus(); });
   }
   $('shop').addEventListener('input', function () { $('fShop').className = 'field'; greet(); });
-  $('num').addEventListener('input', function () { $('fPhone').className = 'field'; });
+  $('num').addEventListener('input', function () { $('fPhone').className = 'field'; checkSoon(); });
   $('cc').addEventListener('input', function () {
     var v = '+' + digits(this.value).slice(0, 3);
     if (this.value !== v) this.value = v;
+    checkSoon();
   });
   $('f').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -552,10 +597,33 @@ footer .f{line-height:1.4}
     if (!p.ok && !firstBad) firstBad = $('num');
     if (firstBad) { firstBad.focus(); return; }
     errKey = '';
+    if (busy) return;
     st.shop = shop; st.cc = p.cc || st.cc || '965'; st.num = $('num').value.replace(/^\s+|\s+$/g, '');
     st.phone = p.e164; st.area = $('area').value; st.shopNo = cleanShop($('shopNo').value); st.salesman = salesValue(); st.lang = lang;
-    send('Started');
-    go(2);
+    var decided = false, btn = $('contBtn'), slow = 0, cap = 0;
+    function decide(r) {
+      if (decided) return; decided = true;
+      clearTimeout(slow); clearTimeout(cap);
+      busy = false; btn.removeAttribute('aria-busy'); btn.textContent = t('cont');
+      // 'done' = finished before. Only skip the message if this same phone started it in the last 30 min (pressed Back).
+      var mineNow = st.mine === st.phone && Date.now() - (st.mineTs || 0) < 30 * 60e3;
+      if (r === 'done' && !mineNow) { st.dup = true; save(); go(5); return; }
+      st.dup = false; st.mine = st.phone; st.mineTs = Date.now();
+      send('Started');
+      go(2);
+    }
+    busy = true;
+    slow = setTimeout(function () { btn.setAttribute('aria-busy', 'true'); btn.textContent = t('checking'); }, 150);
+    cap = setTimeout(function () { decide('unknown'); }, 3000);   // never keep the customer waiting long
+    check(st.phone, decide);
+  });
+  var busy = false;
+
+  // Already registered
+  $('dupSave').addEventListener('click', function () { go(2); });
+  $('dupOther').addEventListener('click', function () {
+    st.dup = false; save(); go(1);
+    try { $('num').focus(); $('num').select(); } catch (e) {}
   });
 
   // Step 2
@@ -616,6 +684,7 @@ footer .f{line-height:1.4}
 
   // ---- start ----
   prefill();
+  if (fullPhone().ok) check(fullPhone().e164); else jsonp('', function () {});
   var age = Date.now() - (st.ts || 0);
   if (st.shop && st.phone && st.step >= 2 && st.step <= 3 && age < 30 * 60e3) step = st.step;
   else if (st.shop && st.step === 4 && age < 12 * 3600e3) step = 4;

@@ -61,13 +61,20 @@ Open **X8 Customers** in Google Sheets.
   the Google Contacts of **x8mobilekwt@gmail.com** (and so on the iPhone signed in to it) with the labels **X8 Customers** and **X8 Bulk / Normal / Low**.
 - Change the tier later and the contact is renamed and moved to the new label.
   No duplicates are made.
-- If the same shop scans again, its row is updated, not copied.
+- **One row per number.** When a customer types a number that already finished
+  registering, the page tells them "This number is already registered" and nothing is
+  added to the Sheet. (A number that only started before is allowed to finish.)
 
 Do not edit the hidden last column (Contact ID). The contact sync uses it.
 
 **Removing a customer:** right-click the row number on the left → **Delete row**.
 (Clearing the cells with backspace leaves an empty row.) This does not delete the
-contact from the phone; delete it there too if you want.
+contact from the phone. To remove it there too:
+
+- **iPhone:** Contacts → open the contact → **Edit** → scroll down → **Delete Contact** → **Delete Contact**.
+- **Computer:** https://contacts.google.com (as x8mobilekwt@gmail.com) → tick the contact → ⋮ → **Delete**.
+
+Delete the Sheet row as well, otherwise **X8 → Save all contacts** would create it again.
 
 **Contacts go to whichever Google account last ran `setup`** (now x8mobilekwt@gmail.com).
 To move them to another account, share the Sheet with it, open Extensions → Apps Script
