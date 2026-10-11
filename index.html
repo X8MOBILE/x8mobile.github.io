@@ -7,15 +7,15 @@
 <meta name="description" content="Your wholesale prices from X8 — straight to your WhatsApp.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="format-detection" content="telephone=no">
-<link rel="canonical" href="https://irfanthaj.github.io/x8/">
+<link rel="canonical" href="https://x8mobile.github.io/">
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="X8 Mobile">
 <meta property="og:title" content="X8 Mobile — Your Daily Price List">
 <meta property="og:description" content="Your wholesale prices from X8 — straight to your WhatsApp.">
-<meta property="og:url" content="https://irfanthaj.github.io/x8/">
-<meta property="og:image" content="https://irfanthaj.github.io/x8/img/og.jpg">
+<meta property="og:url" content="https://x8mobile.github.io/">
+<meta property="og:image" content="https://x8mobile.github.io/img/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="X8 Mobile">
@@ -64,10 +64,10 @@ a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
 [dir=rtl] .lang{right:auto;left:12px}
 .lang svg{width:16px;height:16px;flex:none;margin-right:6px;color:var(--accent)}
 [dir=rtl] .lang svg{margin-right:0;margin-left:6px}
-.lang select{appearance:none;-webkit-appearance:none;border:0;background:transparent;padding:0 2px;height:40px;font-size:14px;font-weight:500;cursor:pointer;max-width:120px}
-.lang select:focus-visible{outline:none}
+.lang .cur{pointer-events:none;white-space:nowrap}
+.lang svg{pointer-events:none}
+.lang select{position:absolute;top:0;left:0;width:100%;height:100%;margin:0;padding:0;border:0;opacity:0;font-size:16px;cursor:pointer;-webkit-appearance:menulist;appearance:auto;z-index:2}
 .lang:focus-within{box-shadow:0 0 0 3px var(--accent)}
-.lang:before{content:"";position:absolute;top:-4px;left:-4px;right:-4px;bottom:-4px}
 
 /* layout */
 .wrap{position:relative;z-index:2;max-width:480px;margin:0 auto;padding:0 20px 28px;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
@@ -150,8 +150,15 @@ select.in{padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xml
 [dir=rtl] .hint svg{margin:1px 0 0 8px}
 .manual{margin:8px 0 0;font-size:14px;color:var(--ink-soft)}
 .manual b{color:var(--ink);font-weight:600;direction:ltr;unicode-bidi:embed;white-space:nowrap}
-.alt{display:none}
-.android .alt{display:inline-flex}
+.asteps{display:none;margin:12px 0 0;padding:0;list-style:none;counter-reset:a}
+.asteps li{position:relative;padding-left:32px;margin-bottom:8px;font-size:14.5px;line-height:1.45;color:var(--ink)}
+[dir=rtl] .asteps li{padding-left:0;padding-right:32px}
+.asteps li:before{counter-increment:a;content:counter(a);position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--accent-tint);color:var(--accent);font-size:12.5px;font-weight:600;line-height:22px;text-align:center}
+[dir=rtl] .asteps li:before{left:auto;right:0}
+.asteps .muted{color:var(--ink-soft);font-size:13.5px}
+.android .asteps{display:block}
+.android .hint{display:none}
+.manual a{color:var(--ink);font-weight:600;direction:ltr;unicode-bidi:embed;white-space:nowrap;text-decoration:none}
 
 /* chat preview */
 .chat{padding:14px 14px 16px;margin-bottom:6px;background:var(--surface);border:1px solid var(--line);border-radius:18px}
@@ -196,7 +203,7 @@ footer .f{line-height:1.4}
   </picture>
   <label class="lang">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z"/></svg>
-    <span class="hp">Language</span>
+    <span class="cur" id="langCur" aria-hidden="true">English</span>
     <select id="lang" aria-label="Language">
       <option value="en">English</option>
       <option value="ar">العربية</option>
@@ -244,8 +251,13 @@ footer .f{line-height:1.4}
         </div>
         <div class="field">
           <label for="shopNo"><span data-t="noLabel">Shop no. / floor</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
-          <input class="in" id="shopNo" name="shopNo" type="text" maxlength="60" data-ph="noPh" enterkeyhint="done">
+          <input class="in" id="shopNo" name="shopNo" type="text" maxlength="60" data-ph="noPh" enterkeyhint="next">
         </div>
+      </div>
+      <div class="field">
+        <label for="salesman"><span data-t="salesLabel">Salesman’s name</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
+        <input class="in" id="salesman" name="salesman" type="text" maxlength="40" autocomplete="off" autocapitalize="words" data-ph="salesPh" enterkeyhint="done" list="staffList">
+        <datalist id="staffList"></datalist>
       </div>
       <div class="hp" aria-hidden="true"><label>Company website <input id="hp" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn" type="submit" data-t="cont">Continue</button>
@@ -269,10 +281,14 @@ footer .f{line-height:1.4}
       <span data-t="saveBtn">Save X8 Mobile</span>
     </a>
     <p class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.2"/></svg><span id="hint"></span></p>
-    <p class="manual"><span data-t="manual">Or save it yourself:</span> <b>+965 6656 8747</b></p>
+    <ol class="asteps">
+      <li data-t="and1">Tap “Open” at the bottom of your screen.</li>
+      <li data-t="and2">Tap “Save” or “Import”. Done.</li>
+      <li class="muted" data-t="and3">Opened your files instead? Tap “x8-mobile.vcf”, then “Save”.</li>
+    </ol>
+    <p class="manual"><span data-t="manual">Or save it yourself:</span> <b id="manualNum">+965 6656 8747</b></p>
     <div class="links">
       <button class="link back" type="button" data-go="1" data-t="back">Back</button>
-      <a class="link alt" id="altBtn" href="#" data-t="androidAlt">File didn’t open? Tap here</a>
       <button class="link" id="already" type="button" data-t="already">Already saved our number?</button>
     </div>
   </section>
@@ -388,6 +404,7 @@ footer .f{line-height:1.4}
     var phs = document.querySelectorAll('[data-ph]');
     for (var j = 0; j < phs.length; j++) phs[j].placeholder = t(phs[j].getAttribute('data-ph'));
     $('lang').value = lang;
+    $('langCur').textContent = t('langName');
     buildAreas();
     $('hint').textContent = isIOS ? t('hintIos') : isAndroid ? t('hintAndroid') : t('hintIos') + ' ' + t('hintAndroid');
     if (errKey) $('errPhone').textContent = t(errKey);
@@ -438,7 +455,7 @@ footer .f{line-height:1.4}
     if (!CFG.sheet || CFG.sheet.indexOf('http') !== 0) return;
     var body = JSON.stringify({
       hp: $('hp').value, t: Date.now() - t0, status: status, saved: saved || '',
-      shop: st.shop, phone: st.phone, area: st.area, shopNo: st.shopNo, lang: lang
+      shop: st.shop, phone: st.phone, area: st.area, shopNo: st.shopNo, salesman: st.salesman || '', lang: lang
     });
     try {
       if (navigator.sendBeacon && navigator.sendBeacon(CFG.sheet, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return;
@@ -485,6 +502,11 @@ footer .f{line-height:1.4}
     if (st.cc) $('cc').value = '+' + st.cc;
     if (st.num) $('num').value = st.num;
     if (st.shopNo) $('shopNo').value = st.shopNo;
+    var by = /[?&]by=([^&#]*)/.exec(location.search);   // optional: link shared by a salesman, ?by=Name
+    if (by) { try { st.salesman = cleanShop(decodeURIComponent(by[1].replace(/\+/g, ' '))).slice(0, 40); } catch (e) {} }
+    if (st.salesman) $('salesman').value = st.salesman;
+    var staff = window.X8_STAFF || [], dl = $('staffList');
+    for (var k = 0; k < staff.length; k++) { var o = document.createElement('option'); o.value = staff[k]; dl.appendChild(o); }
   }
   $('shop').addEventListener('input', function () { $('fShop').className = 'field'; greet(); });
   $('num').addEventListener('input', function () { $('fPhone').className = 'field'; });
@@ -504,7 +526,7 @@ footer .f{line-height:1.4}
     if (firstBad) { firstBad.focus(); return; }
     errKey = '';
     st.shop = shop; st.cc = p.cc || st.cc || '965'; st.num = $('num').value.replace(/^\s+|\s+$/g, '');
-    st.phone = p.e164; st.area = $('area').value; st.shopNo = cleanShop($('shopNo').value); st.lang = lang;
+    st.phone = p.e164; st.area = $('area').value; st.shopNo = cleanShop($('shopNo').value); st.salesman = cleanShop($('salesman').value).slice(0, 40); st.lang = lang;
     send('Started');
     go(2);
   });
@@ -518,11 +540,13 @@ footer .f{line-height:1.4}
     autoTimer = setTimeout(toStep3, 4000);
   });
   $('already').addEventListener('click', function () { st.saved = 'Said already saved'; save(); go(3); });
-  $('altBtn').href = 'intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=X8%20Mobile;S.phone=%2B' + CFG.wa + ';S.company=' + encodeURIComponent('X8 Mobile & Electronics – Wholesale') + ';end';
-  $('altBtn').addEventListener('click', function () {
-    st.saved = 'Saved'; save();
-    clearTimeout(autoTimer); autoTimer = setTimeout(toStep3, 4000);
-  });
+  if (isAndroid) {
+    // on Android the number opens the dialer, which offers "Create new contact"
+    var mn = $('manualNum'), a = document.createElement('a');
+    a.href = 'tel:+' + CFG.wa; a.id = 'manualNum'; a.textContent = mn.textContent;
+    a.addEventListener('click', function () { st.saved = 'Saved'; save(); });
+    mn.parentNode.replaceChild(a, mn);
+  }
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) { leftPage = true; return; }
     if (leftPage && step === 2 && st.saved) setTimeout(toStep3, 350);
@@ -540,7 +564,14 @@ footer .f{line-height:1.4}
   var backs = document.querySelectorAll('[data-go]');
   for (var b = 0; b < backs.length; b++) backs[b].addEventListener('click', function () { go(+this.getAttribute('data-go')); });
 
-  $('lang').addEventListener('change', function () { lang = this.value; st.lang = lang; save(); applyLang(); });
+  function onLang() {
+    var v = $('lang').value;
+    if (!STR[v] || v === lang) return;
+    lang = v; st.lang = lang; save(); applyLang();
+  }
+  $('lang').addEventListener('change', onLang);
+  $('lang').addEventListener('input', onLang);   // some Android browsers fire only this
+  $('lang').addEventListener('blur', onLang);
 
   // Gentle depth: the photo drifts slower than the page
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,13 +1,13 @@
 # X8 Mobile: daily price list page
 
-Live page: https://irfanthaj.github.io/x8/
+Live page: https://x8mobile.github.io/
 
 A shop owner scans the QR, types their shop name and WhatsApp number, saves our
 number, and sends us a ready-made hello on WhatsApp. Their details go into the
 **X8 Customers** Google Sheet by themselves.
 
-> **Important:** never rename this repo ("x8") or the GitHub username ("irfanthaj").
-> The address would change and every printed QR code would stop working.
+> **Important:** never rename the GitHub organization ("x8mobile") or this repo
+> ("x8mobile.github.io"). The address would change and every printed QR code would stop working.
 
 ---
 
@@ -17,16 +17,28 @@ All words on the page are in **strings.js**, one block per language
 (`en`, `ar`, `ml`, `hi`, `ur`, `bn`). Change only the text between the quotes.
 `{shop}` becomes the customer's shop name.
 
-To edit: open https://github.com/irfanthaj/x8/blob/main/strings.js, click the pencil ✏️,
+To edit: open https://github.com/x8mobile/x8mobile.github.io/blob/main/strings.js, click the pencil ✏️,
 change the text, then click **Commit changes**. The page updates in about a minute.
 
 Area names are at the bottom of the same file.
+
+## Salesman names
+
+Customers can type the name of the salesman who visited them (optional). It goes into the
+**Salesman** column of the Sheet.
+
+To show your staff names as tap-to-pick suggestions, edit this line in **strings.js**:
+
+    window.X8_STAFF = ["Rashid", "Anwar", "Shibu"];
+
+A salesman can also send a shop their own link, so their name is filled in already:
+`https://x8mobile.github.io/?by=Rashid`
 
 ## Change the WhatsApp number
 
 The number appears in these places:
 
-1. **index.html**: search for `96566568747` (`wa:` setting and the Android link) and
+1. **index.html**: search for `96566568747` (`wa:` setting) and
    `+965 6656 8747` (what people see).
 2. **x8-mobile.vcf**: the `TEL` line.
 3. The WhatsApp message wording is in **index.html**, in the `message` function
@@ -41,6 +53,7 @@ After changing the number, the printed QR still works: it points to the page, no
 Open **X8 Customers** in Google Sheets.
 
 - Every new shop appears as a **yellow row**.
+- **Salesman** shows who visited the shop, if the customer wrote it.
 - **Status** shows *Started* (filled the form) or *Done* (also opened WhatsApp to say hello).
 - In the **Tier** column, pick **Bulk**, **Normal** or **Low**.
 - That's all. The yellow goes away, the **Contact name** fills in
@@ -56,6 +69,14 @@ To make WhatsApp broadcast lists by tier: in the phone's Contacts app, open the
 label (for example **X8 Bulk**) to see the shops in that group.
 
 The script lives inside the Sheet: **Extensions → Apps Script**.
+
+## Saving our number on Android
+
+A web page cannot put a contact straight into an Android phone, so Android always
+downloads a small contact file. The page shows the steps: tap **Open** at the bottom,
+then **Save** / **Import**. Some phones (for example Vivo) open the Files app first;
+then tap **x8-mobile.vcf** and **Save**. On Android the number on the page can also be
+tapped to open the dialer with **Create new contact**.
 
 ---
 

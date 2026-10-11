@@ -33,7 +33,11 @@ window.X8_STRINGS = {
     saveBtn: "Save X8 Mobile",
     hintIos: "Tap “Create New Contact”, then “Done”.",
     hintAndroid: "Open the downloaded file, then tap “Save”.",
-    androidAlt: "File didn’t open? Tap here",
+    and1: "Tap “Open” at the bottom of your screen.",
+    and2: "Tap “Save” or “Import”. That’s it.",
+    and3: "Went to your files instead? Tap “x8-mobile.vcf”, then “Save”.",
+    salesLabel: "Salesman’s name",
+    salesPh: "Who from X8 visited you?",
     manual: "Or save it yourself:",
     already: "Already saved our number?",
     s3: "Say hello on WhatsApp",
@@ -75,7 +79,11 @@ window.X8_STRINGS = {
     saveBtn: "احفظ X8 Mobile",
     hintIos: "اضغط «إنشاء جهة اتصال جديدة» ثم «تم».",
     hintAndroid: "افتح الملف الذي تم تنزيله ثم اضغط «حفظ».",
-    androidAlt: "لم يُفتح الملف؟ اضغط هنا",
+    and1: "اضغط «فتح» أسفل الشاشة.",
+    and2: "اضغط «حفظ» أو «استيراد». وانتهى.",
+    and3: "فُتحت الملفات بدلاً من ذلك؟ اضغط «x8-mobile.vcf» ثم «حفظ».",
+    salesLabel: "اسم المندوب",
+    salesPh: "من زارك من X8؟",
     manual: "أو احفظه بنفسك:",
     already: "حفظت رقمنا من قبل؟",
     s3: "أرسل لنا تحية على واتساب",
@@ -117,7 +125,11 @@ window.X8_STRINGS = {
     saveBtn: "X8 Mobile സേവ് ചെയ്യുക",
     hintIos: "“Create New Contact” അമർത്തുക, പിന്നെ “Done”.",
     hintAndroid: "ഡൗൺലോഡ് ആയ ഫയൽ തുറന്ന് “Save” അമർത്തുക.",
-    androidAlt: "ഫയൽ തുറന്നില്ലേ? ഇവിടെ അമർത്തുക",
+    and1: "സ്ക്രീനിന്റെ താഴെയുള്ള “Open” അമർത്തുക.",
+    and2: "“Save” അല്ലെങ്കിൽ “Import” അമർത്തുക. കഴിഞ്ഞു.",
+    and3: "ഫയൽസ് ആണോ തുറന്നത്? “x8-mobile.vcf” അമർത്തി “Save” ചെയ്യുക.",
+    salesLabel: "സെയിൽസ്മാന്റെ പേര്",
+    salesPh: "X8-ൽ നിന്ന് ആരാണ് വന്നത്?",
     manual: "അല്ലെങ്കിൽ സ്വയം സേവ് ചെയ്യാം:",
     already: "നമ്പർ നേരത്തേ സേവ് ചെയ്തിട്ടുണ്ടോ?",
     s3: "WhatsApp-ൽ ഒരു ഹലോ പറയൂ",
@@ -159,7 +171,11 @@ window.X8_STRINGS = {
     saveBtn: "X8 Mobile सेव करें",
     hintIos: "“Create New Contact” दबाएँ, फिर “Done”।",
     hintAndroid: "डाउनलोड हुई फ़ाइल खोलें, फिर “Save” दबाएँ।",
-    androidAlt: "फ़ाइल नहीं खुली? यहाँ दबाएँ",
+    and1: "स्क्रीन के नीचे “Open” दबाएँ।",
+    and2: "“Save” या “Import” दबाएँ। बस हो गया।",
+    and3: "फ़ाइलें खुल गईं? “x8-mobile.vcf” दबाएँ, फिर “Save”।",
+    salesLabel: "सेल्समैन का नाम",
+    salesPh: "X8 से कौन आया था?",
     manual: "या ख़ुद सेव करें:",
     already: "हमारा नंबर पहले से सेव है?",
     s3: "WhatsApp पर हेलो कहें",
@@ -201,7 +217,11 @@ window.X8_STRINGS = {
     saveBtn: "X8 Mobile محفوظ کریں",
     hintIos: "“Create New Contact” دبائیں، پھر “Done”۔",
     hintAndroid: "ڈاؤن لوڈ ہونے والی فائل کھولیں، پھر “Save” دبائیں۔",
-    androidAlt: "فائل نہیں کھلی؟ یہاں دبائیں",
+    and1: "اسکرین کے نیچے “Open” دبائیں۔",
+    and2: "“Save” یا “Import” دبائیں۔ بس ہو گیا۔",
+    and3: "فائلیں کھل گئیں؟ “x8-mobile.vcf” دبائیں، پھر “Save”۔",
+    salesLabel: "سیلز مین کا نام",
+    salesPh: "X8 سے کون آیا تھا؟",
     manual: "یا خود محفوظ کریں:",
     already: "ہمارا نمبر پہلے سے محفوظ ہے؟",
     s3: "واٹس ایپ پر سلام کہیں",
@@ -243,7 +263,11 @@ window.X8_STRINGS = {
     saveBtn: "X8 Mobile সেভ করুন",
     hintIos: "“Create New Contact” চাপুন, তারপর “Done”।",
     hintAndroid: "ডাউনলোড হওয়া ফাইলটি খুলুন, তারপর “Save” চাপুন।",
-    androidAlt: "ফাইল খোলেনি? এখানে চাপুন",
+    and1: "স্ক্রিনের নিচে “Open” চাপুন।",
+    and2: "“Save” বা “Import” চাপুন। ব্যস, হয়ে গেল।",
+    and3: "ফাইল খুলে গেছে? “x8-mobile.vcf” চাপুন, তারপর “Save”।",
+    salesLabel: "সেলসম্যানের নাম",
+    salesPh: "X8 থেকে কে এসেছিলেন?",
     manual: "অথবা নিজে সেভ করুন:",
     already: "আমাদের নম্বর আগেই সেভ করেছেন?",
     s3: "WhatsApp-এ হ্যালো বলুন",
@@ -257,6 +281,10 @@ window.X8_STRINGS = {
     step: "ধাপ {n} / ৩"
   }
 };
+
+/* Staff names shown as suggestions under "Salesman's name" (customers can still type anything).
+   Example: window.X8_STAFF = ["Rashid", "Anwar", "Shibu"]; */
+window.X8_STAFF = [];
 
 /* Area names. The value on the left is what goes into the Sheet (always English).
    Arabic shows Arabic names; other languages show the English names people use day to day. */
