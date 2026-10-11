@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>X8 Mobile — Your Daily Price List</title>
+<meta name="description" content="Your wholesale prices from X8 — straight to your WhatsApp.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="format-detection" content="telephone=no">
+<link rel="canonical" href="https://irfanthaj.github.io/x8/">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="X8 Mobile">
+<meta property="og:title" content="X8 Mobile — Your Daily Price List">
+<meta property="og:description" content="Your wholesale prices from X8 — straight to your WhatsApp.">
+<meta property="og:url" content="https://irfanthaj.github.io/x8/">
+<meta property="og:image" content="https://irfanthaj.github.io/x8/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="X8 Mobile">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
+<link rel="preload" as="image" href="img/shop.webp" type="image/webp">
+<style>
+:root{
+  --canvas:#FFFFFF; --surface:#F5F6FB; --line:#E1E4F0; --line-strong:#C9CEE2;
+  --ink:#0B1233; --ink-soft:#4F577A; --ink-faint:#7A819E;
+  --accent:#262C96; --accent-press:#1B2078; --accent-tint:#EEF0FA; --accent-ink:#FFFFFF;
+  --error:#B3261E;
+  --script:"Geist";
+  --font:"Geist", var(--script), system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  --ease:cubic-bezier(.23,1,.32,1);
+  --r:14px;
+  --e1:0 1px 2px rgba(17,22,80,.06), 0 2px 6px rgba(17,22,80,.05);
+  --e2:0 8px 24px -10px rgba(17,22,80,.22), 0 2px 6px rgba(17,22,80,.06);
+}
+html[lang=ar]{--script:"Noto Sans Arabic"}
+html[lang=ur]{--script:"Noto Naskh Arabic"}
+html[lang=ml]{--script:"Noto Sans Malayalam"}
+html[lang=hi]{--script:"Noto Sans Devanagari"}
+html[lang=bn]{--script:"Noto Sans Bengali"}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+html[lang=ur] body{line-height:1.9}
+html[lang=ml] body, html[lang=bn] body, html[lang=hi] body{line-height:1.65}
+::selection{background:var(--accent);color:#fff}
+img{display:block;max-width:100%}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* hero */
+.hero{position:relative;height:36vh;min-height:210px;max-height:320px;overflow:hidden;background:#EEE9E4}
+.later .hero{height:22vh;min-height:150px;max-height:200px}
+.hero picture,.hero img{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%}
+.hero img{object-fit:cover;object-position:50% 34%;transform-origin:50% 40%;animation:settle 1.6s var(--ease) both;will-change:transform}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:78%;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 45%,rgba(255,255,255,.92) 78%,#fff 100%);pointer-events:none}
+@keyframes settle{from{transform:scale(1.07);opacity:.0}to{transform:scale(1);opacity:1}}
+.lang{position:absolute;top:12px;top:calc(12px + env(safe-area-inset-top));right:12px;z-index:3;display:flex;align-items:center;height:40px;padding:0 12px;background:rgba(255,255,255,.94);border-radius:999px;box-shadow:var(--e1);font-size:14px;font-weight:500;color:var(--ink)}
+[dir=rtl] .lang{right:auto;left:12px}
+.lang svg{width:16px;height:16px;flex:none;margin-right:6px;color:var(--accent)}
+[dir=rtl] .lang svg{margin-right:0;margin-left:6px}
+.lang select{appearance:none;-webkit-appearance:none;border:0;background:transparent;padding:0 2px;height:40px;font-size:14px;font-weight:500;cursor:pointer;max-width:120px}
+.lang select:focus-visible{outline:none}
+.lang:focus-within{box-shadow:0 0 0 3px var(--accent)}
+.lang:before{content:"";position:absolute;top:-4px;left:-4px;right:-4px;bottom:-4px}
+
+/* layout */
+.wrap{position:relative;z-index:2;max-width:480px;margin:0 auto;padding:0 20px 28px;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+.brand{margin-top:-78px;margin-bottom:14px;width:132px;height:101px}
+.later .brand{margin-top:-62px;width:104px;height:80px}
+.brand img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(17,22,80,.16))}
+.greet{margin:0 0 4px;font-size:15px;font-weight:500;color:var(--ink-soft);min-height:1.55em;transition:opacity .2s var(--ease)}
+.greet b,.step h2 b{unicode-bidi:-webkit-isolate;unicode-bidi:isolate}
+.greet b{color:var(--ink);font-weight:600}
+h1{margin:0;font-size:31px;line-height:1.1;letter-spacing:-.025em;font-weight:600;text-wrap:balance}
+.sub{margin:10px 0 0;font-size:16.5px;color:var(--ink-soft);max-width:34ch;text-wrap:pretty}
+.trust{display:flex;align-items:flex-start;margin:16px 0 0;font-size:13.5px;line-height:1.45;color:var(--ink-soft)}
+.trust .nw{white-space:nowrap}
+.trust svg{flex:none;width:16px;height:16px;margin:1px 8px 0 0;color:var(--accent)}
+[dir=rtl] .trust .nw{white-space:nowrap}
+.trust svg{margin:1px 0 0 8px}
+html:not([lang=en]) h1,html:not([lang=en]) .step h2{letter-spacing:0}
+html[lang=ml] h1{font-size:26px;line-height:1.3}
+html[lang=ar] h1,html[lang=ur] h1,html[lang=bn] h1,html[lang=hi] h1{line-height:1.35}
+.later .intro{display:none}
+
+/* progress */
+.dots{display:flex;align-items:center;margin:26px 0 18px}
+.dots i{display:block;height:6px;width:6px;border-radius:6px;background:var(--line-strong);margin-right:6px;transition:width .3s var(--ease),background-color .3s var(--ease)}
+[dir=rtl] .dots i{margin-right:0;margin-left:6px}
+.dots i.on{width:22px;background:var(--accent)}
+.dots i.past{background:var(--accent)}
+.dots span{margin-left:8px;font-size:12.5px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+[dir=rtl] .dots span{margin-left:0;margin-right:8px}
+.later .dots{margin-top:6px}
+
+/* steps */
+.step{display:none}
+.step.on{display:block;animation:enter .32s var(--ease) both}
+@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.step h2{margin:0 0 6px;font-size:22px;line-height:1.25;letter-spacing:-.015em;font-weight:600;outline:none}
+.step .lead{margin:0 0 18px;color:var(--ink-soft);text-wrap:pretty}
+
+/* fields */
+.field{margin-bottom:14px}
+.field label,.lbl{display:block;font-size:14px;font-weight:500;margin-bottom:6px;color:var(--ink)}
+.opt{font-weight:400;color:var(--ink-faint)}
+.in{display:block;width:100%;height:54px;padding:0 14px;font-size:17px;background:var(--canvas);border:1px solid var(--line-strong);border-radius:12px;transition:border-color .15s var(--ease),box-shadow .15s var(--ease);-webkit-appearance:none;appearance:none}
+.in::placeholder{color:#9AA0B8;opacity:1}
+.in:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(38,44,150,.16)}
+.bad .in{border-color:var(--error)}
+.phone{display:flex;direction:ltr}
+.phone .cc{flex:none;width:86px;margin-right:8px;text-align:center;font-variant-numeric:tabular-nums}
+.phone .num{flex:1;min-width:0;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.row{display:flex;flex-wrap:wrap;align-items:flex-end;margin:0 -5px}
+.row .field{flex:1 1 150px;margin-left:5px;margin-right:5px}
+select.in{padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%234F577A' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;text-overflow:ellipsis}
+[dir=rtl] select.in{padding-right:14px;padding-left:38px;background-position:left 14px center}
+.err{display:none;margin:6px 0 0;font-size:13.5px;color:var(--error)}
+.bad .err{display:block}
+.hp{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* buttons */
+.btn{position:relative;display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:12px 20px;margin-top:8px;border:0;border-radius:var(--r);background:var(--accent);color:var(--accent-ink);font-size:17px;font-weight:600;line-height:1.25;text-align:center;text-decoration:none;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 22px -12px rgba(38,44,150,.75),0 2px 4px rgba(17,22,80,.12);transition:transform .12s var(--ease),background-color .15s var(--ease)}
+.btn:active{transform:scale(.98);background:var(--accent-press)}
+.btn svg{flex:none;width:22px;height:22px;margin-right:10px}
+[dir=rtl] .btn svg{margin-right:0;margin-left:10px}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:var(--accent-press)}}
+.link{display:inline-flex;align-items:center;min-height:48px;padding:0 2px;border:0;background:none;color:var(--accent);font-size:15px;font-weight:500;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;cursor:pointer}
+.links{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;margin-top:6px}
+.back{color:var(--ink-soft);text-decoration:none}
+.back:before{content:"‹";font-size:20px;margin-right:6px;line-height:1}
+[dir=rtl] .back:before{content:"›";margin-right:0;margin-left:6px}
+
+/* contact card */
+.vcard{display:flex;align-items:center;padding:16px;margin-bottom:6px;background:var(--canvas);border:1px solid var(--line);border-radius:18px;box-shadow:var(--e2)}
+.vcard .ph{flex:none;width:64px;height:64px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-right:14px}
+[dir=rtl] .vcard .ph{margin-right:0;margin-left:14px}
+.vcard .ph img{width:50px;height:auto}
+.vcard .nm{font-size:18px;font-weight:600;line-height:1.25}
+.vcard .org{font-size:13px;color:var(--ink-soft);line-height:1.35;margin-top:2px}
+.vcard .tel{margin-top:4px;font-size:15px;font-weight:500;color:var(--accent);direction:ltr;unicode-bidi:embed;font-variant-numeric:tabular-nums}
+.hint{display:flex;align-items:flex-start;margin:12px 0 0;font-size:14px;color:var(--ink-soft);line-height:1.5}
+.hint svg{flex:none;width:18px;height:18px;margin:1px 8px 0 0;color:var(--accent)}
+[dir=rtl] .hint svg{margin:1px 0 0 8px}
+.manual{margin:8px 0 0;font-size:14px;color:var(--ink-soft)}
+.manual b{color:var(--ink);font-weight:600;direction:ltr;unicode-bidi:embed;white-space:nowrap}
+.alt{display:none}
+.android .alt{display:inline-flex}
+
+/* chat preview */
+.chat{padding:14px 14px 16px;margin-bottom:6px;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.chat .to{display:flex;align-items:center;font-size:13px;font-weight:500;color:var(--ink-soft);margin-bottom:12px}
+.chat .to img{width:26px;height:26px;border-radius:50%;background:#fff;border:1px solid var(--line);padding:3px;object-fit:contain;margin-right:8px}
+[dir=rtl] .chat .to img{margin-right:0;margin-left:8px}
+.bubble{direction:ltr;text-align:left;margin-left:auto;max-width:88%;width:-webkit-fit-content;width:fit-content;padding:10px 12px 8px;background:#fff;border-radius:14px 14px 4px 14px;box-shadow:var(--e1);font-family:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.45;word-wrap:break-word}
+.bubble small{display:block;text-align:right;font-size:11px;color:var(--ink-faint);margin-top:2px}
+
+/* done */
+.done{padding-top:6px}
+.tick{width:72px;height:72px;margin:0 0 18px}
+.tick circle{fill:var(--accent-tint);stroke:var(--accent);stroke-width:2;stroke-dasharray:214;stroke-dashoffset:214;animation:draw .7s var(--ease) .05s forwards}
+.tick path{fill:none;stroke:var(--accent);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .45s var(--ease) .55s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.done h2{font-size:28px;line-height:1.2;letter-spacing:-.02em}
+html[lang=ml] .done h2{font-size:24px}
+.done h2 b{color:var(--accent);font-weight:600}
+.done .lead{font-size:17px}
+
+/* footer */
+footer{max-width:480px;margin:0 auto;padding:18px 20px 28px;padding-bottom:calc(28px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;align-items:center;font-size:13px;color:var(--ink-faint)}
+footer img{width:30px;height:auto;margin-right:10px;opacity:.95}
+[dir=rtl] footer img{margin-right:0;margin-left:10px}
+footer a{color:var(--ink-soft);text-decoration:none;direction:ltr;unicode-bidi:embed;white-space:nowrap}
+footer .f{line-height:1.4}
+
+@media (min-width:600px){.hero{max-height:360px}.wrap{padding-top:4px}}
+@media (prefers-reduced-motion:reduce){
+  .hero img{animation:fade .4s ease both}
+  .step.on{animation:fade .2s ease both}
+  .tick circle,.tick path{animation:none;stroke-dashoffset:0}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <picture>
+    <source srcset="img/shop.webp" type="image/webp">
+    <img id="heroImg" src="img/shop.jpg" alt="" width="900" height="782" fetchpriority="high">
+  </picture>
+  <label class="lang">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z"/></svg>
+    <span class="hp">Language</span>
+    <select id="lang" aria-label="Language">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+      <option value="ml">മലയാളം</option>
+      <option value="hi">हिन्दी</option>
+      <option value="ur">اردو</option>
+      <option value="bn">বাংলা</option>
+    </select>
+  </label>
+</header>
+
+<main class="wrap">
+  <div class="brand"><img src="img/logo.png" alt="X8 Mobile" width="480" height="368"></div>
+
+  <p class="greet" id="greet" aria-live="polite"></p>
+  <div class="intro">
+    <h1 data-t="title">Your daily price list</h1>
+    <p class="sub" data-t="sub">Your wholesale prices from X8 — straight to your WhatsApp.</p>
+    <p class="trust"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.6-3 8.4-7 10-4-1.6-7-5.4-7-10V6l7-3z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/></svg><span data-t="trust">10+ years in Kuwait wholesale · Delivery within 24 hours</span></p>
+  </div>
+
+  <div class="dots" id="dots"><i></i><i></i><i></i><span id="stepTxt"></span></div>
+
+  <!-- 1 · Your shop -->
+  <section class="step" id="s1" aria-labelledby="h1s">
+    <h2 id="h1s" tabindex="-1" data-t="s1">Your shop</h2>
+    <form id="f" novalidate autocomplete="on">
+      <div class="field" id="fShop">
+        <label for="shop" data-t="shopLabel">Shop name</label>
+        <input class="in" id="shop" name="shop" type="text" maxlength="60" autocomplete="organization" autocapitalize="words" enterkeyhint="next" data-ph="shopPh" required>
+        <p class="err" data-t="errShop" role="alert"></p>
+      </div>
+      <div class="field" id="fPhone">
+        <label class="lbl" for="num" data-t="waLabel">Your WhatsApp number</label>
+        <div class="phone">
+          <input class="in cc" id="cc" name="cc" type="tel" inputmode="tel" maxlength="5" value="+965" aria-label="Country code" autocomplete="tel-country-code">
+          <input class="in num" id="num" name="num" type="tel" inputmode="numeric" maxlength="16" placeholder="5123 4567" autocomplete="tel-national" enterkeyhint="next" required>
+        </div>
+        <p class="err" id="errPhone" role="alert"></p>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="area"><span data-t="areaLabel">Area</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
+          <select class="in" id="area" name="area"></select>
+        </div>
+        <div class="field">
+          <label for="shopNo"><span data-t="noLabel">Shop no. / floor</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
+          <input class="in" id="shopNo" name="shopNo" type="text" maxlength="60" data-ph="noPh" enterkeyhint="done">
+        </div>
+      </div>
+      <div class="hp" aria-hidden="true"><label>Company website <input id="hp" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn" type="submit" data-t="cont">Continue</button>
+    </form>
+  </section>
+
+  <!-- 2 · Save our number -->
+  <section class="step" id="s2" aria-labelledby="h2s">
+    <h2 id="h2s" tabindex="-1" data-t="s2">Save our number</h2>
+    <p class="lead" data-t="s2text"></p>
+    <div class="vcard" aria-hidden="true">
+      <div class="ph"><img src="img/mark.png" alt="" width="150" height="115"></div>
+      <div>
+        <div class="nm">X8 Mobile</div>
+        <div class="org">X8 Mobile &amp; Electronics – Wholesale</div>
+        <div class="tel">+965 6656 8747</div>
+      </div>
+    </div>
+    <a class="btn" id="saveBtn" href="x8-mobile.vcf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.5" cy="8" r="3.5"/><path d="M3 20c.6-3.6 3.2-5.8 6.5-5.8s5.9 2.2 6.5 5.8"/><path d="M19 8v6M16 11h6"/></svg>
+      <span data-t="saveBtn">Save X8 Mobile</span>
+    </a>
+    <p class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.2"/></svg><span id="hint"></span></p>
+    <p class="manual"><span data-t="manual">Or save it yourself:</span> <b>+965 6656 8747</b></p>
+    <div class="links">
+      <button class="link back" type="button" data-go="1" data-t="back">Back</button>
+      <a class="link alt" id="altBtn" href="#" data-t="androidAlt">File didn’t open? Tap here</a>
+      <button class="link" id="already" type="button" data-t="already">Already saved our number?</button>
+    </div>
+  </section>
+
+  <!-- 3 · Say hello -->
+  <section class="step" id="s3" aria-labelledby="h3s">
+    <h2 id="h3s" tabindex="-1" data-t="s3">Say hello on WhatsApp</h2>
+    <p class="lead" data-t="s3text"></p>
+    <div class="chat" aria-hidden="true">
+      <div class="to"><img src="img/mark.png" alt="" width="150" height="115"><span data-t="to">To: X8 Mobile</span></div>
+      <div class="bubble"><span id="msgPreview"></span><small>✓✓</small></div>
+    </div>
+    <a class="btn" id="waBtn" href="https://wa.me/96566568747" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.54-3.7 8.24-8.24 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+      <span data-t="waBtn">Open WhatsApp</span>
+    </a>
+    <div class="links"><button class="link back" type="button" data-go="2" data-t="back">Back</button></div>
+  </section>
+
+  <!-- 4 · Done -->
+  <section class="step done" id="s4" aria-labelledby="h4s">
+    <svg class="tick" viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="34"/><path d="M23 37.5l9 9 17-19"/></svg>
+    <h2 id="h4s" tabindex="-1"></h2>
+    <p class="lead" data-t="doneText"></p>
+    <div class="links"><button class="link back" type="button" data-go="1" data-t="edit">Change my details</button></div>
+  </section>
+
+  <noscript><p>Save our number: <b>+965 6656 8747</b> · <a href="https://wa.me/96566568747">WhatsApp</a></p></noscript>
+</main>
+
+<footer>
+  <img src="img/mark.png" alt="" width="150" height="115">
+  <div class="f">X8 Mobile &amp; Electronics – Wholesale<br><a href="tel:+96566568747">+965 6656 8747</a></div>
+</footer>
+
+<script src="strings.js"></script>
+<script>
+(function () {
+  'use strict';
+  // ---- settings: change these if the number or Sheet changes ----
+  var CFG = {
+    wa: '96566568747',                 // WhatsApp number in wa.me format
+    sheet: 'https://script.google.com/macros/s/AKfycbxfpykm7_Eu350GrjJiRrDbBFy67H1wuhLw3DYQnkQWY213EOXnMAh-x4YLQMiXcck60w/exec',            // Google Apps Script web app URL
+    key: 'x8.v1'                       // browser memory key
+  };
+  function message(shop, area) {       // always English
+    return 'Hi X8 👋 ' + shop + (area && area !== 'Other' ? ', ' + area : '') + '. I saved your number ✅';
+  }
+
+  var STR = window.X8_STRINGS, AREAS = window.X8_AREAS;
+  var FONTS = { ar: 'Noto+Sans+Arabic:wght@400;500;600', ur: 'Noto+Naskh+Arabic:wght@400;500;600', ml: 'Noto+Sans+Malayalam:wght@400;500;600', hi: 'Noto+Sans+Devanagari:wght@400;500;600', bn: 'Noto+Sans+Bengali:wght@400;500;600' };
+  var RTL = { ar: 1, ur: 1 };
+  var t0 = Date.now();
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  function $(id) { return document.getElementById(id); }
+
+  // ---- memory (never breaks the page) ----
+  function load() { try { return JSON.parse(localStorage.getItem(CFG.key)) || {}; } catch (e) { return {}; } }
+  function save() { try { localStorage.setItem(CFG.key, JSON.stringify(st)); } catch (e) {} }
+  var st = load();
+
+  // ---- language ----
+  function pickLang() {
+    var m = /[?&]lang=(\w\w)/.exec(location.search);
+    if (m && STR[m[1]]) return m[1];
+    if (st.lang && STR[st.lang]) return st.lang;
+    var list = navigator.languages || [navigator.language || 'en'];
+    for (var i = 0; i < list.length; i++) {
+      var c = String(list[i]).slice(0, 2).toLowerCase();
+      if (STR[c]) return c;
+    }
+    return 'en';
+  }
+  var lang = pickLang();
+  function t(k) { return (STR[lang] && STR[lang][k]) || STR.en[k] || ''; }
+  var loadedFonts = {};
+  function loadFont(l) {
+    if (!FONTS[l] || loadedFonts[l]) return;
+    loadedFonts[l] = 1;
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=' + FONTS[l] + '&display=swap';
+    document.head.appendChild(link);
+  }
+  // put text with the shop name in bold, without ever treating input as HTML
+  function fill(el, k, shop, block) {
+    var s = t(k), i = s.indexOf('{shop}');
+    el.innerHTML = '';
+    if (i < 0 || !shop) { el.appendChild(document.createTextNode(i < 0 ? s : s.replace(/,?\s*\{shop\}/, ''))); return; }
+    var b = document.createElement('b');
+    b.dir = 'auto';
+    b.textContent = shop;
+    el.appendChild(document.createTextNode(s.slice(0, i)));
+    el.appendChild(b);
+    el.appendChild(document.createTextNode(s.slice(i + 6)));
+  }
+  function applyLang() {
+    var html = document.documentElement;
+    html.lang = lang;
+    html.dir = RTL[lang] ? 'rtl' : 'ltr';
+    loadFont(lang);
+    var els = document.querySelectorAll('[data-t]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = t(els[i].getAttribute('data-t'));
+    var tr = document.querySelector('[data-t=trust]'), parts = t('trust').split(' · ');
+    tr.innerHTML = '';
+    for (var p = 0; p < parts.length; p++) {
+      var sp = document.createElement('span'); sp.className = 'nw'; sp.textContent = parts[p];
+      if (p) tr.appendChild(document.createTextNode(' · '));
+      tr.appendChild(sp);
+    }
+    var phs = document.querySelectorAll('[data-ph]');
+    for (var j = 0; j < phs.length; j++) phs[j].placeholder = t(phs[j].getAttribute('data-ph'));
+    $('lang').value = lang;
+    buildAreas();
+    $('hint').textContent = isIOS ? t('hintIos') : isAndroid ? t('hintAndroid') : t('hintIos') + ' ' + t('hintAndroid');
+    if (errKey) $('errPhone').textContent = t(errKey);
+    greet();
+    renderStep();
+  }
+  function buildAreas() {
+    var sel = $('area'), keep = sel.value || st.area || '';
+    sel.innerHTML = '';
+    var o = new Option(t('areaChoose'), '');
+    sel.appendChild(o);
+    for (var i = 0; i < AREAS.length; i++) sel.appendChild(new Option(lang === 'ar' ? AREAS[i][1] : AREAS[i][0], AREAS[i][0]));
+    sel.appendChild(new Option(t('other'), 'Other'));
+    sel.value = keep;
+  }
+
+  // ---- greeting by Kuwait time (UTC+3, no daylight saving) ----
+  function greet() {
+    var h = (new Date().getUTCHours() + 3) % 24;
+    var shop = cleanShop($('shop').value);
+    var g = $('greet');
+    if (step === 1 && !shop) { g.textContent = t(h >= 4 && h < 12 ? 'morning' : h >= 12 && h < 17 ? 'afternoon' : 'evening'); return; }
+    if (step === 4) { g.textContent = ''; return; }
+    fill(g, 'nice', shop || st.shop);
+  }
+
+  // ---- phone ----
+  function digits(s) {
+    s = String(s || '');
+    // convert Arabic-Indic and Eastern Arabic digits
+    s = s.replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 0x0660; })
+         .replace(/[۰-۹]/g, function (d) { return d.charCodeAt(0) - 0x06F0; })
+         .replace(/[০-৯]/g, function (d) { return d.charCodeAt(0) - 0x09E6; });
+    return s.replace(/\D/g, '');
+  }
+  function fullPhone() {
+    var cc = digits($('cc').value) || '965', n = digits($('num').value);
+    if (/^00/.test(n)) { n = n.slice(2); return { cc: '', n: n, e164: '+' + n, ok: /^\d{8,15}$/.test(n) && (!/^965/.test(n) || /^965[4569]\d{7}$/.test(n)) }; }
+    if (n.length > 8 && n.indexOf(cc) === 0) n = n.slice(cc.length);
+    if (cc !== '965') n = n.replace(/^0+/, '');
+    var ok = cc === '965' ? /^[4569]\d{7}$/.test(n) : (/^\d{1,3}$/.test(cc) && /^\d{6,12}$/.test(n) && (cc + n).length <= 15);
+    return { cc: cc, n: n, e164: '+' + cc + n, ok: ok };
+  }
+  function cleanShop(s) { return String(s || '').replace(/[<>]/g, '').replace(/\s+/g, ' ').replace(/^\s|\s$/g, '').slice(0, 60); }
+
+  // ---- send to Sheet (sendBeacon survives opening WhatsApp) ----
+  function send(status, saved) {
+    if (!CFG.sheet || CFG.sheet.indexOf('http') !== 0) return;
+    var body = JSON.stringify({
+      hp: $('hp').value, t: Date.now() - t0, status: status, saved: saved || '',
+      shop: st.shop, phone: st.phone, area: st.area, shopNo: st.shopNo, lang: lang
+    });
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(CFG.sheet, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return;
+    } catch (e) {}
+    try {
+      if (window.fetch) { fetch(CFG.sheet, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: body }); return; }
+    } catch (e) {}
+    try { var x = new XMLHttpRequest(); x.open('POST', CFG.sheet, true); x.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8'); x.send(body); } catch (e) {}
+  }
+
+  // ---- steps ----
+  var step = 1, errKey = '', autoTimer = 0, leftPage = false;
+  function renderStep() {
+    for (var i = 1; i <= 4; i++) $('s' + i).className = 'step' + (i === 4 ? ' done' : '') + (i === step ? ' on' : '');
+    document.body.className = (step > 1 ? 'later' : '') + (isAndroid ? ' android' : '');
+    var dots = $('dots').getElementsByTagName('i');
+    for (var d = 0; d < 3; d++) dots[d].className = (d + 1 === step ? 'on' : (d + 1 < step ? 'past' : ''));
+    $('stepTxt').textContent = step < 4 ? t('step').replace('{n}', step) : '';
+    $('dots').style.display = step === 4 ? 'none' : '';
+    if (step === 2) fill($('h2s'), 's2');
+    if (step === 3) {
+      var msg = message(st.shop, st.area);
+      $('msgPreview').textContent = msg;
+      $('waBtn').href = 'https://wa.me/' + CFG.wa + '?text=' + encodeURIComponent(msg);
+    }
+    if (step === 4) fill($('h4s'), 'doneTitle', st.shop);
+    greet();
+  }
+  function go(n, focus) {
+    clearTimeout(autoTimer);
+    step = n;
+    st.step = n; st.ts = Date.now(); save();
+    renderStep();
+    if (focus !== false) {
+      try { window.scrollTo(0, 0); } catch (e) {}
+      var h = $('h' + n + 's');
+      try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); }
+    }
+  }
+
+  // Step 1
+  function prefill() {
+    if (st.shop) $('shop').value = st.shop;
+    if (st.cc) $('cc').value = '+' + st.cc;
+    if (st.num) $('num').value = st.num;
+    if (st.shopNo) $('shopNo').value = st.shopNo;
+  }
+  $('shop').addEventListener('input', function () { $('fShop').className = 'field'; greet(); });
+  $('num').addEventListener('input', function () { $('fPhone').className = 'field'; });
+  $('cc').addEventListener('input', function () {
+    var v = '+' + digits(this.value).slice(0, 3);
+    if (this.value !== v) this.value = v;
+  });
+  $('f').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var shop = cleanShop($('shop').value), p = fullPhone(), firstBad = null;
+    $('fShop').className = 'field' + (shop.length < 2 ? ' bad' : '');
+    if (shop.length < 2) firstBad = $('shop');
+    errKey = p.cc === '965' && p.n.length !== 8 ? 'errPhoneKw' : 'errPhone';
+    $('errPhone').textContent = t(errKey);
+    $('fPhone').className = 'field' + (p.ok ? '' : ' bad');
+    if (!p.ok && !firstBad) firstBad = $('num');
+    if (firstBad) { firstBad.focus(); return; }
+    errKey = '';
+    st.shop = shop; st.cc = p.cc || st.cc || '965'; st.num = $('num').value.replace(/^\s+|\s+$/g, '');
+    st.phone = p.e164; st.area = $('area').value; st.shopNo = cleanShop($('shopNo').value); st.lang = lang;
+    send('Started');
+    go(2);
+  });
+
+  // Step 2
+  function toStep3() { if (step === 2) go(3); }
+  $('saveBtn').addEventListener('click', function () {
+    st.saved = 'Saved'; st.step = 3; st.ts = Date.now(); save(); // a reload on return lands on step 3
+    leftPage = false;
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(toStep3, 4000);
+  });
+  $('already').addEventListener('click', function () { st.saved = 'Said already saved'; save(); go(3); });
+  $('altBtn').href = 'intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=X8%20Mobile;S.phone=%2B' + CFG.wa + ';S.company=' + encodeURIComponent('X8 Mobile & Electronics – Wholesale') + ';end';
+  $('altBtn').addEventListener('click', function () {
+    st.saved = 'Saved'; save();
+    clearTimeout(autoTimer); autoTimer = setTimeout(toStep3, 4000);
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { leftPage = true; return; }
+    if (leftPage && step === 2 && st.saved) setTimeout(toStep3, 350);
+  });
+  window.addEventListener('pageshow', function (e) { if (e.persisted && step === 2 && st.saved) toStep3(); });
+
+  // Step 3
+  $('waBtn').addEventListener('click', function () {
+    send('Done', st.saved || 'Saved');
+    st.step = 4; st.ts = Date.now(); save();
+    setTimeout(function () { go(4, false); }, 700);
+  });
+
+  // Back / edit
+  var backs = document.querySelectorAll('[data-go]');
+  for (var b = 0; b < backs.length; b++) backs[b].addEventListener('click', function () { go(+this.getAttribute('data-go')); });
+
+  $('lang').addEventListener('change', function () { lang = this.value; st.lang = lang; save(); applyLang(); });
+
+  // Gentle depth: the photo drifts slower than the page
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && window.requestAnimationFrame) {
+    var img = $('heroImg'), ticking = false;
+    window.addEventListener('scroll', function () {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () {
+        var y = Math.min(window.pageYOffset || 0, 400);
+        img.style.transform = 'translate3d(0,' + (y * 0.35).toFixed(1) + 'px,0)';
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  // ---- start ----
+  prefill();
+  var age = Date.now() - (st.ts || 0);
+  if (st.shop && st.phone && st.step >= 2 && st.step <= 3 && age < 30 * 60e3) step = st.step;
+  else if (st.shop && st.step === 4 && age < 12 * 3600e3) step = 4;
+  applyLang();
+})();
+</script>
+</body>
+</html>
