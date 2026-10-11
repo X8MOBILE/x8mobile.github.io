@@ -255,9 +255,9 @@ footer .f{line-height:1.4}
         </div>
       </div>
       <div class="field">
-        <label for="salesman"><span data-t="salesLabel">Salesman’s name</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
-        <input class="in" id="salesman" name="salesman" type="text" maxlength="40" autocomplete="off" autocapitalize="words" data-ph="salesPh" enterkeyhint="done" list="staffList">
-        <datalist id="staffList"></datalist>
+        <label for="salesSel"><span data-t="salesLabel">Salesman’s name</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
+        <select class="in" id="salesSel" name="salesSel"></select>
+        <input class="in" id="salesman" name="salesman" type="text" maxlength="40" autocomplete="off" autocapitalize="words" data-ph="salesPh" enterkeyhint="done" aria-label="Salesman’s name" style="display:none;margin-top:8px">
       </div>
       <div class="hp" aria-hidden="true"><label>Company website <input id="hp" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn" type="submit" data-t="cont">Continue</button>
@@ -406,10 +406,31 @@ footer .f{line-height:1.4}
     $('lang').value = lang;
     $('langCur').textContent = t('langName');
     buildAreas();
+    buildStaff();
     $('hint').textContent = isIOS ? t('hintIos') : isAndroid ? t('hintAndroid') : t('hintIos') + ' ' + t('hintAndroid');
     if (errKey) $('errPhone').textContent = t(errKey);
     greet();
     renderStep();
+  }
+  var STAFF = window.X8_STAFF || [];
+  function buildStaff() {
+    var sel = $('salesSel'), keep = sel.value;
+    if (!STAFF.length) { sel.style.display = 'none'; $('salesman').style.display = ''; $('salesman').style.marginTop = '0'; return; }
+    sel.innerHTML = '';
+    sel.appendChild(new Option(t('chooseSales'), ''));
+    for (var i = 0; i < STAFF.length; i++) sel.appendChild(new Option(STAFF[i], STAFF[i]));
+    sel.appendChild(new Option(t('other'), '__other'));
+    sel.value = keep;
+  }
+  function showOther() {
+    var other = $('salesSel').value === '__other' || !STAFF.length;
+    $('salesman').style.display = other ? '' : 'none';
+    return other;
+  }
+  function salesValue() {
+    var v = $('salesSel').value;
+    if (STAFF.length && v && v !== '__other') return v;
+    return cleanShop($('salesman').value).slice(0, 40);
   }
   function buildAreas() {
     var sel = $('area'), keep = sel.value || st.area || '';
@@ -504,9 +525,15 @@ footer .f{line-height:1.4}
     if (st.shopNo) $('shopNo').value = st.shopNo;
     var by = /[?&]by=([^&#]*)/.exec(location.search);   // optional: link shared by a salesman, ?by=Name
     if (by) { try { st.salesman = cleanShop(decodeURIComponent(by[1].replace(/\+/g, ' '))).slice(0, 40); } catch (e) {} }
-    if (st.salesman) $('salesman').value = st.salesman;
-    var staff = window.X8_STAFF || [], dl = $('staffList');
-    for (var k = 0; k < staff.length; k++) { var o = document.createElement('option'); o.value = staff[k]; dl.appendChild(o); }
+    buildStaff();
+    if (st.salesman) {
+      var known = '';
+      for (var k = 0; k < STAFF.length; k++) if (STAFF[k].toLowerCase() === st.salesman.toLowerCase()) known = STAFF[k];
+      if (known) $('salesSel').value = known;
+      else { $('salesSel').value = '__other'; $('salesman').value = st.salesman; }
+    }
+    showOther();
+    $('salesSel').addEventListener('change', function () { if (showOther()) $('salesman').focus(); });
   }
   $('shop').addEventListener('input', function () { $('fShop').className = 'field'; greet(); });
   $('num').addEventListener('input', function () { $('fPhone').className = 'field'; });
@@ -526,7 +553,7 @@ footer .f{line-height:1.4}
     if (firstBad) { firstBad.focus(); return; }
     errKey = '';
     st.shop = shop; st.cc = p.cc || st.cc || '965'; st.num = $('num').value.replace(/^\s+|\s+$/g, '');
-    st.phone = p.e164; st.area = $('area').value; st.shopNo = cleanShop($('shopNo').value); st.salesman = cleanShop($('salesman').value).slice(0, 40); st.lang = lang;
+    st.phone = p.e164; st.area = $('area').value; st.shopNo = cleanShop($('shopNo').value); st.salesman = salesValue(); st.lang = lang;
     send('Started');
     go(2);
   });
