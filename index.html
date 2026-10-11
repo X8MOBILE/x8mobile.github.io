@@ -255,10 +255,12 @@ footer .f{line-height:1.4}
           <input class="in" id="shopNo" name="shopNo" type="text" maxlength="60" data-ph="noPh" enterkeyhint="next">
         </div>
       </div>
-      <div class="field">
+      <div class="field" id="fAreaOther" style="display:none">
+        <input class="in" id="areaOther" name="areaOther" type="text" maxlength="40" autocapitalize="words" data-ph="areaPh" enterkeyhint="next" aria-label="Area">
+      </div>
+      <div class="field" id="fSales">
         <label for="salesSel"><span data-t="salesLabel">Salesman’s name</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
         <select class="in" id="salesSel" name="salesSel"></select>
-        <input class="in" id="salesman" name="salesman" type="text" maxlength="40" autocomplete="off" autocapitalize="words" data-ph="salesPh" enterkeyhint="done" aria-label="Salesman’s name" style="display:none;margin-top:8px">
       </div>
       <div class="hp" aria-hidden="true"><label>Company website <input id="hp" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn" type="submit" id="contBtn" data-t="cont">Continue</button>
@@ -425,31 +427,38 @@ footer .f{line-height:1.4}
   var STAFF = window.X8_STAFF || [];
   function buildStaff() {
     var sel = $('salesSel'), keep = sel.value;
-    if (!STAFF.length) { sel.style.display = 'none'; $('salesman').style.display = ''; $('salesman').style.marginTop = '0'; return; }
+    $('fSales').style.display = STAFF.length ? '' : 'none';
     sel.innerHTML = '';
     sel.appendChild(new Option(t('chooseSales'), ''));
     for (var i = 0; i < STAFF.length; i++) sel.appendChild(new Option(STAFF[i], STAFF[i]));
-    sel.appendChild(new Option(t('other'), '__other'));
     sel.value = keep;
   }
-  function showOther() {
-    var other = $('salesSel').value === '__other' || !STAFF.length;
-    $('salesman').style.display = other ? '' : 'none';
-    return other;
-  }
-  function salesValue() {
-    var v = $('salesSel').value;
-    if (STAFF.length && v && v !== '__other') return v;
-    return cleanShop($('salesman').value).slice(0, 40);
+  function salesValue() { return $('salesSel').value || ''; }
+  function isListedArea(a) {
+    for (var i = 0; i < AREAS.length; i++) if (AREAS[i][0] === a) return true;
+    return false;
   }
   function buildAreas() {
-    var sel = $('area'), keep = sel.value || st.area || '';
+    var sel = $('area'), keep = sel.value;
+    if (!keep && st.area) keep = isListedArea(st.area) ? st.area : 'Other';   // a typed area comes back as "Other" + text
     sel.innerHTML = '';
     var o = new Option(t('areaChoose'), '');
     sel.appendChild(o);
     for (var i = 0; i < AREAS.length; i++) sel.appendChild(new Option(lang === 'ar' ? AREAS[i][1] : AREAS[i][0], AREAS[i][0]));
     sel.appendChild(new Option(t('other'), 'Other'));
     sel.value = keep;
+    showAreaOther();
+  }
+  function showAreaOther() {
+    var other = $('area').value === 'Other';
+    $('fAreaOther').style.display = other ? '' : 'none';
+    return other;
+  }
+  // what goes to the Sheet: a listed area, the typed area, or "Other" if nothing was typed
+  function areaValue() {
+    var v = $('area').value;
+    if (v !== 'Other') return v;
+    return cleanShop($('areaOther').value).slice(0, 40) || 'Other';
   }
 
   // ---- greeting by Kuwait time (UTC+3, no daylight saving) ----
@@ -571,13 +580,10 @@ footer .f{line-height:1.4}
     if (by) { try { st.salesman = cleanShop(decodeURIComponent(by[1].replace(/\+/g, ' '))).slice(0, 40); } catch (e) {} }
     buildStaff();
     if (st.salesman) {
-      var known = '';
-      for (var k = 0; k < STAFF.length; k++) if (STAFF[k].toLowerCase() === st.salesman.toLowerCase()) known = STAFF[k];
-      if (known) $('salesSel').value = known;
-      else { $('salesSel').value = '__other'; $('salesman').value = st.salesman; }
+      for (var k = 0; k < STAFF.length; k++) if (STAFF[k].toLowerCase() === st.salesman.toLowerCase()) $('salesSel').value = STAFF[k];
     }
-    showOther();
-    $('salesSel').addEventListener('change', function () { if (showOther()) $('salesman').focus(); });
+    if (st.area && st.area !== 'Other' && !isListedArea(st.area)) $('areaOther').value = st.area;
+    $('area').addEventListener('change', function () { if (showAreaOther()) $('areaOther').focus(); });
   }
   $('shop').addEventListener('input', function () { $('fShop').className = 'field'; greet(); });
   $('num').addEventListener('input', function () { $('fPhone').className = 'field'; checkSoon(); });
@@ -599,7 +605,7 @@ footer .f{line-height:1.4}
     errKey = '';
     if (busy) return;
     st.shop = shop; st.cc = p.cc || st.cc || '965'; st.num = $('num').value.replace(/^\s+|\s+$/g, '');
-    st.phone = p.e164; st.area = $('area').value; st.shopNo = cleanShop($('shopNo').value); st.salesman = salesValue(); st.lang = lang;
+    st.phone = p.e164; st.area = areaValue(); st.shopNo = cleanShop($('shopNo').value); st.salesman = salesValue(); st.lang = lang;
     var decided = false, btn = $('contBtn'), slow = 0, cap = 0;
     function decide(r) {
       if (decided) return; decided = true;

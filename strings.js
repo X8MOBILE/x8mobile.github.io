@@ -37,7 +37,7 @@ window.X8_STRINGS = {
     and2: "Tap “Save” or “Import”. That’s it.",
     and3: "Went to your files instead? Tap “x8-mobile.vcf”, then “Save”.",
     salesLabel: "Salesman’s name",
-    salesPh: "Type the name",
+    areaPh: "Type your area",
     chooseSales: "Choose salesman",
     dupTitle: "This number is already registered.",
     dupText: "Your daily prices already come to you on WhatsApp. New phone, or lost our number? Save it again below.",
@@ -89,7 +89,7 @@ window.X8_STRINGS = {
     and2: "اضغط «حفظ» أو «استيراد». وانتهى.",
     and3: "فُتحت الملفات بدلاً من ذلك؟ اضغط «x8-mobile.vcf» ثم «حفظ».",
     salesLabel: "اسم المندوب",
-    salesPh: "اكتب الاسم",
+    areaPh: "اكتب اسم منطقتك",
     chooseSales: "اختر المندوب",
     dupTitle: "هذا الرقم مسجّل لدينا مسبقاً.",
     dupText: "أسعارك اليومية تصلك على واتساب. غيّرت هاتفك أو فقدت رقمنا؟ احفظه مرة أخرى من هنا.",
@@ -141,7 +141,7 @@ window.X8_STRINGS = {
     and2: "“Save” അല്ലെങ്കിൽ “Import” അമർത്തുക. കഴിഞ്ഞു.",
     and3: "ഫയൽസ് ആണോ തുറന്നത്? “x8-mobile.vcf” അമർത്തി “Save” ചെയ്യുക.",
     salesLabel: "സെയിൽസ്മാന്റെ പേര്",
-    salesPh: "പേര് എഴുതുക",
+    areaPh: "നിങ്ങളുടെ ഏരിയ എഴുതുക",
     chooseSales: "സെയിൽസ്മാനെ തിരഞ്ഞെടുക്കുക",
     dupTitle: "ഈ നമ്പർ ഇതിനകം രജിസ്റ്റർ ചെയ്തതാണ്.",
     dupText: "നിങ്ങളുടെ ദിവസേനയുള്ള വിലകൾ ഇതിനകം WhatsApp-ൽ വരുന്നുണ്ട്. ഫോൺ മാറിയോ, നമ്പർ നഷ്ടപ്പെട്ടോ? താഴെ നിന്ന് വീണ്ടും സേവ് ചെയ്യാം.",
@@ -193,7 +193,7 @@ window.X8_STRINGS = {
     and2: "“Save” या “Import” दबाएँ। बस हो गया।",
     and3: "फ़ाइलें खुल गईं? “x8-mobile.vcf” दबाएँ, फिर “Save”।",
     salesLabel: "सेल्समैन का नाम",
-    salesPh: "नाम लिखें",
+    areaPh: "अपना एरिया लिखें",
     chooseSales: "सेल्समैन चुनें",
     dupTitle: "यह नंबर पहले से रजिस्टर्ड है।",
     dupText: "आपके रोज़ के रेट पहले से WhatsApp पर आ रहे हैं। फ़ोन बदला या हमारा नंबर खो गया? नीचे से फिर से सेव करें।",
@@ -245,7 +245,7 @@ window.X8_STRINGS = {
     and2: "“Save” یا “Import” دبائیں۔ بس ہو گیا۔",
     and3: "فائلیں کھل گئیں؟ “x8-mobile.vcf” دبائیں، پھر “Save”۔",
     salesLabel: "سیلز مین کا نام",
-    salesPh: "نام لکھیں",
+    areaPh: "اپنا علاقہ لکھیں",
     chooseSales: "سیلز مین منتخب کریں",
     dupTitle: "یہ نمبر پہلے سے رجسٹرڈ ہے۔",
     dupText: "آپ کے روزانہ کے ریٹ پہلے سے واٹس ایپ پر آ رہے ہیں۔ فون بدلا یا ہمارا نمبر کھو گیا؟ نیچے سے دوبارہ محفوظ کریں۔",
@@ -297,7 +297,7 @@ window.X8_STRINGS = {
     and2: "“Save” বা “Import” চাপুন। ব্যস, হয়ে গেল।",
     and3: "ফাইল খুলে গেছে? “x8-mobile.vcf” চাপুন, তারপর “Save”।",
     salesLabel: "সেলসম্যানের নাম",
-    salesPh: "নাম লিখুন",
+    areaPh: "আপনার এলাকার নাম লিখুন",
     chooseSales: "সেলসম্যান বেছে নিন",
     dupTitle: "এই নম্বরটি আগেই রেজিস্টার করা আছে।",
     dupText: "আপনার প্রতিদিনের দাম আগে থেকেই WhatsApp-এ আসছে। ফোন বদলেছেন বা আমাদের নম্বর হারিয়েছেন? নিচে থেকে আবার সেভ করুন।",
@@ -318,7 +318,7 @@ window.X8_STRINGS = {
   }
 };
 
-/* Staff names shown in the "Salesman's name" list. "Other" lets the customer type any name.
+/* Staff names shown in the "Salesman's name" list (customers pick one, or leave it empty).
    Example: window.X8_STAFF = ["Rashid", "Anwar", "Shibu"]; */
 window.X8_STAFF = ["Taj", "Riyas Mangalore", "Ali", "Faheem", "Suhail", "Rizwan", "Yusuf"];
 

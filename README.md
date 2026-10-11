@@ -24,8 +24,11 @@ Area names are at the bottom of the same file.
 
 ## Salesman names
 
-Customers can pick the salesman who visited them from a list (optional), or choose
-**Other** and type a name. It goes into the **Salesman** column of the Sheet.
+Customers can pick the salesman who visited them from a list (optional).
+It goes into the **Salesman** column of the Sheet.
+
+In **Area**, choosing **Other** opens a box where the customer types their area;
+the typed name goes into the Sheet (or "Other" if they leave it empty).
 
 To change the names, edit this line in **strings.js**:
 
