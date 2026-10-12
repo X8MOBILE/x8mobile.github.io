@@ -427,7 +427,14 @@ footer .f{line-height:1.4}
     greet();
     renderStep();
   }
-  var STAFF = window.X8_STAFF || [];
+  // ---- alphabetical lists ----
+  function enKey(x) { return String(x).toLowerCase(); }
+  // Arabic dictionary order: ignore the leading "ال", treat أ إ آ as ا
+  function arKey(x) { return String(x).replace(/^ال/, '').replace(/[أإآ]/g, 'ا'); }
+  function byKey(keyOf) { return function (a, b) { var x = keyOf(a), y = keyOf(b); return x < y ? -1 : x > y ? 1 : 0; }; }
+  var STAFF = (window.X8_STAFF || []).slice().sort(byKey(enKey));
+  var AREAS_EN = AREAS.slice().sort(byKey(function (r) { return enKey(r[0]); }));
+  var AREAS_AR = AREAS.slice().sort(byKey(function (r) { return arKey(r[1]); }));
   function buildStaff() {
     var sel = $('salesSel'), keep = sel.value;
     $('fSales').style.display = STAFF.length ? '' : 'none';
@@ -452,7 +459,8 @@ footer .f{line-height:1.4}
     if (!keep && st.area) keep = isListedArea(st.area) ? st.area : 'Other';   // a typed area comes back as "Other" + text
     sel.innerHTML = '';
     sel.appendChild(prompt_(t('areaChoose')));
-    for (var i = 0; i < AREAS.length; i++) sel.appendChild(new Option(lang === 'ar' ? AREAS[i][1] : AREAS[i][0], AREAS[i][0]));
+    var list = lang === 'ar' ? AREAS_AR : AREAS_EN;
+    for (var i = 0; i < list.length; i++) sel.appendChild(new Option(lang === 'ar' ? list[i][1] : list[i][0], list[i][0]));
     sel.appendChild(new Option(t('other'), 'Other'));
     if (keep) sel.value = keep; else sel.selectedIndex = 0;
     showAreaOther();

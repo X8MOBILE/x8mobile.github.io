@@ -337,17 +337,32 @@ window.X8_STRINGS = {
 };
 
 /* Staff names shown in the "Salesman's name" list (customers must pick one).
-   Example: window.X8_STAFF = ["Rashid", "Anwar", "Shibu"]; */
-window.X8_STAFF = ["Taj", "Riyas Mangalore", "Ali", "Faheem", "Suhail", "Rizwan", "Yusuf"];
+   The page shows them A–Z by itself. Example: ["Rashid", "Anwar", "Shibu"] */
+window.X8_STAFF = ["Ali", "Faheem", "Riyas Mangalore", "Rizwan", "Suhail", "Taj", "Yusuf"];
 
 /* Area names. The value on the left is what goes into the Sheet (always English).
-   Arabic shows Arabic names; other languages show the English names people use day to day. */
+   Arabic shows Arabic names; other languages show the English names people use day to day.
+   Add or remove lines freely: the page sorts them A–Z by itself (Arabic in Arabic order),
+   and "Other" is always shown last. */
 window.X8_AREAS = [
-  ["Fahaheel", "الفحيحيل"], ["Khaitan", "خيطان"], ["Jahra", "الجهراء"],
-  ["Mahboula", "المهبولة"], ["Ardiya", "العارضية"], ["Farwaniya", "الفروانية"],
-  ["Al Rai", "الري"], ["Salmiya", "السالمية"], ["Jleeb Al-Shuyoukh", "جليب الشيوخ"],
-  ["Mangaf", "المنقف"], ["Maliya", "المالية"], ["Hawally", "حولي"],
-  ["Egaila", "العقيلة"], ["Riggae", "الرقعي"], ["Yarmouk", "اليرموك"],
-  ["Abbasiya", "العباسية"], ["Fintas", "الفنطاس"], ["Abu Halifa", "أبو حليفة"],
-  ["Mubarakiya", "المباركية"], ["Kuwait City", "مدينة الكويت"]
+  // Capital
+  ["Kuwait City", "مدينة الكويت"], ["Sharq", "شرق"], ["Mubarakiya", "المباركية"],
+  ["Maliya", "المالية"], ["Shuwaikh", "الشويخ"],
+  // Hawally
+  ["Hawally", "حولي"], ["Salmiya", "السالمية"], ["Jabriya", "الجابرية"],
+  ["Rumaithiya", "الرميثية"], ["Salwa", "سلوى"],
+  // Farwaniya
+  ["Farwaniya", "الفروانية"], ["Khaitan", "خيطان"], ["Jleeb Al-Shuyoukh", "جليب الشيوخ"],
+  ["Abbasiya", "العباسية"], ["Hasawi", "الحساوي"], ["Ardiya", "العارضية"],
+  ["Al Rai", "الري"], ["Dajeej", "الضجيج"], ["Riggae", "الرقعي"], ["Yarmouk", "اليرموك"],
+  // Ahmadi
+  ["Fahaheel", "الفحيحيل"], ["Mangaf", "المنقف"], ["Mahboula", "المهبولة"],
+  ["Fintas", "الفنطاس"], ["Abu Halifa", "أبو حليفة"], ["Egaila", "العقيلة"],
+  ["Riqqa", "الرقة"], ["Sabahiya", "الصباحية"], ["Ahmadi", "الأحمدي"],
+  ["Fahad Al-Ahmad", "فهد الأحمد"], ["Ali Sabah Al-Salem (Umm Al-Hayman)", "علي صباح السالم (أم الهيمان)"],
+  ["Sabah Al-Ahmad City", "مدينة صباح الأحمد"], ["Khairan", "الخيران"], ["Wafra", "الوفرة"],
+  // Jahra
+  ["Jahra", "الجهراء"], ["Taima", "تيماء"], ["Sulaibiya", "الصليبية"], ["Saad Al-Abdullah", "سعد العبدالله"],
+  // Mubarak Al-Kabeer
+  ["Sabah Al-Salem", "صباح السالم"], ["Qurain", "القرين"]
 ];

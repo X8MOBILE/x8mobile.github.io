@@ -20,7 +20,9 @@ All words on the page are in **strings.js**, one block per language
 To edit: open https://github.com/x8mobile/x8mobile.github.io/blob/main/strings.js, click the pencil ✏️,
 change the text, then click **Commit changes**. The page updates in about a minute.
 
-Area names are at the bottom of the same file.
+Area names are at the bottom of the same file (40 key areas across all 6 governorates).
+The page shows areas and salesmen in A–Z order by itself (Arabic in Arabic order), with
+**Other** always last, so new names can be added anywhere in the list.
 
 ## Salesman names
 
