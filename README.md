@@ -24,11 +24,12 @@ Area names are at the bottom of the same file.
 
 ## Salesman names
 
-Customers can pick the salesman who visited them from a list (optional).
-It goes into the **Salesman** column of the Sheet.
+**Area** and **Salesman** must be answered: the customer cannot continue until they
+pick an area and the salesman who visited them. It goes into the **Area** and
+**Salesman** columns of the Sheet.
 
-In **Area**, choosing **Other** opens a box where the customer types their area;
-the typed name goes into the Sheet (or "Other" if they leave it empty).
+In **Area**, choosing **Other** opens a box where the customer must type their area;
+the typed name goes into the Sheet.
 
 To change the names, edit this line in **strings.js**:
 
@@ -56,7 +57,7 @@ After changing the number, the printed QR still works: it points to the page, no
 Open **X8 Customers** in Google Sheets.
 
 - Every new shop appears as a **yellow row**.
-- **Salesman** shows who visited the shop, if the customer wrote it.
+- **Salesman** shows who visited the shop.
 - **Status** shows *Started* (filled the form) or *Done* (also opened WhatsApp to say hello).
 - In the **Tier** column, pick **Bulk**, **Normal** or **Low**.
 - That's all. The yellow goes away, the **Contact name** fills in

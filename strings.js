@@ -28,6 +28,9 @@ window.X8_STRINGS = {
     errShop: "Please write your shop name.",
     errPhone: "Please check your WhatsApp number.",
     errPhoneKw: "Kuwait numbers have 8 digits.",
+    errArea: "Please choose your area.",
+    errAreaOther: "Please type your area.",
+    errSales: "Please choose the salesman.",
     s2: "Save our number",
     s2text: "Save X8 Mobile in your phone, so your price list can reach you on WhatsApp.",
     saveBtn: "Save X8 Mobile",
@@ -80,6 +83,9 @@ window.X8_STRINGS = {
     errShop: "يرجى كتابة اسم المحل.",
     errPhone: "يرجى التأكد من رقم الواتساب.",
     errPhoneKw: "أرقام الكويت من 8 خانات.",
+    errArea: "يرجى اختيار المنطقة.",
+    errAreaOther: "يرجى كتابة اسم المنطقة.",
+    errSales: "يرجى اختيار المندوب.",
     s2: "احفظ رقمنا",
     s2text: "احفظ X8 Mobile في هاتفك لتصلك قائمة أسعارك على واتساب.",
     saveBtn: "احفظ X8 Mobile",
@@ -132,6 +138,9 @@ window.X8_STRINGS = {
     errShop: "ഷോപ്പിന്റെ പേര് എഴുതുക.",
     errPhone: "WhatsApp നമ്പർ ഒന്ന് പരിശോധിക്കുക.",
     errPhoneKw: "കുവൈത്ത് നമ്പറിൽ 8 അക്കങ്ങൾ ഉണ്ട്.",
+    errArea: "ഏരിയ തിരഞ്ഞെടുക്കുക.",
+    errAreaOther: "ഏരിയയുടെ പേര് എഴുതുക.",
+    errSales: "സെയിൽസ്മാനെ തിരഞ്ഞെടുക്കുക.",
     s2: "ഞങ്ങളുടെ നമ്പർ സേവ് ചെയ്യുക",
     s2text: "X8 Mobile നിങ്ങളുടെ ഫോണിൽ സേവ് ചെയ്യൂ. എങ്കിലേ വില ലിസ്റ്റ് WhatsApp-ൽ കിട്ടൂ.",
     saveBtn: "X8 Mobile സേവ് ചെയ്യുക",
@@ -184,6 +193,9 @@ window.X8_STRINGS = {
     errShop: "कृपया दुकान का नाम लिखें।",
     errPhone: "कृपया अपना WhatsApp नंबर जाँच लें।",
     errPhoneKw: "कुवैत के नंबर 8 अंकों के होते हैं।",
+    errArea: "कृपया अपना एरिया चुनें।",
+    errAreaOther: "कृपया अपना एरिया लिखें।",
+    errSales: "कृपया सेल्समैन चुनें।",
     s2: "हमारा नंबर सेव करें",
     s2text: "X8 Mobile को अपने फ़ोन में सेव करें, ताकि प्राइस लिस्ट आपके WhatsApp पर पहुँचे।",
     saveBtn: "X8 Mobile सेव करें",
@@ -236,6 +248,9 @@ window.X8_STRINGS = {
     errShop: "براہ کرم دکان کا نام لکھیں۔",
     errPhone: "براہ کرم اپنا واٹس ایپ نمبر چیک کریں۔",
     errPhoneKw: "کویت کے نمبر 8 ہندسوں کے ہوتے ہیں۔",
+    errArea: "براہ کرم اپنا علاقہ منتخب کریں۔",
+    errAreaOther: "براہ کرم اپنا علاقہ لکھیں۔",
+    errSales: "براہ کرم سیلز مین منتخب کریں۔",
     s2: "ہمارا نمبر محفوظ کریں",
     s2text: "X8 Mobile کو اپنے فون میں محفوظ کریں تاکہ پرائس لسٹ آپ کے واٹس ایپ پر پہنچے۔",
     saveBtn: "X8 Mobile محفوظ کریں",
@@ -288,6 +303,9 @@ window.X8_STRINGS = {
     errShop: "দয়া করে দোকানের নাম লিখুন।",
     errPhone: "দয়া করে WhatsApp নম্বরটি দেখে নিন।",
     errPhoneKw: "কুয়েতের নম্বর ৮ সংখ্যার হয়।",
+    errArea: "দয়া করে আপনার এলাকা বেছে নিন।",
+    errAreaOther: "দয়া করে আপনার এলাকার নাম লিখুন।",
+    errSales: "দয়া করে সেলসম্যান বেছে নিন।",
     s2: "আমাদের নম্বর সেভ করুন",
     s2text: "X8 Mobile আপনার ফোনে সেভ করুন, যাতে প্রাইস লিস্ট আপনার WhatsApp-এ পৌঁছায়।",
     saveBtn: "X8 Mobile সেভ করুন",
@@ -318,7 +336,7 @@ window.X8_STRINGS = {
   }
 };
 
-/* Staff names shown in the "Salesman's name" list (customers pick one, or leave it empty).
+/* Staff names shown in the "Salesman's name" list (customers must pick one).
    Example: window.X8_STAFF = ["Rashid", "Anwar", "Shibu"]; */
 window.X8_STAFF = ["Taj", "Riyas Mangalore", "Ali", "Faheem", "Suhail", "Rizwan", "Yusuf"];
 
