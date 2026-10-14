@@ -261,6 +261,10 @@ footer .f{line-height:1.4}
         <p class="err" data-t="errAreaOther" role="alert"></p>
       </div>
       <div class="field">
+        <label for="addr"><span data-t="addrLabel">Building / complex or block</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
+        <input class="in" id="addr" name="addr" type="text" maxlength="80" autocapitalize="words" data-ph="addrPh" enterkeyhint="next">
+      </div>
+      <div class="field">
         <label for="shopNo"><span data-t="noLabel">Shop no. / floor</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
         <input class="in" id="shopNo" name="shopNo" type="text" maxlength="60" data-ph="noPh" enterkeyhint="next">
       </div>
@@ -515,7 +519,7 @@ footer .f{line-height:1.4}
     if (!CFG.sheet || CFG.sheet.indexOf('http') !== 0 || st.dup) return;
     var body = JSON.stringify({
       hp: $('hp').value, t: Date.now() - t0, status: status, saved: saved || '',
-      shop: st.shop, phone: st.phone, area: st.area, shopNo: st.shopNo, salesman: st.salesman || '', lang: lang
+      shop: st.shop, phone: st.phone, area: st.area, address: st.address || '', shopNo: st.shopNo, salesman: st.salesman || '', lang: lang
     });
     try {
       if (navigator.sendBeacon && navigator.sendBeacon(CFG.sheet, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return;
@@ -596,6 +600,7 @@ footer .f{line-height:1.4}
     if (st.cc) $('cc').value = '+' + st.cc;
     if (st.num) $('num').value = st.num;
     if (st.shopNo) $('shopNo').value = st.shopNo;
+    if (st.address) $('addr').value = st.address;
     var by = /[?&]by=([^&#]*)/.exec(location.search);   // optional: link shared by a salesman, ?by=Name
     if (by) { try { st.salesman = cleanShop(decodeURIComponent(by[1].replace(/\+/g, ' '))).slice(0, 40); } catch (e) {} }
     buildStaff();
@@ -635,7 +640,7 @@ footer .f{line-height:1.4}
     errKey = '';
     if (busy) return;
     st.shop = shop; st.cc = p.cc || st.cc || '965'; st.num = $('num').value.replace(/^\s+|\s+$/g, '');
-    st.phone = p.e164; st.area = areaValue(); st.shopNo = cleanShop($('shopNo').value); st.salesman = salesValue(); st.lang = lang;
+    st.phone = p.e164; st.area = areaValue(); st.shopNo = cleanShop($('shopNo').value); st.address = cleanShop($('addr').value).slice(0, 80); st.salesman = salesValue(); st.lang = lang;
     var decided = false, btn = $('contBtn'), slow = 0, cap = 0;
     function decide(r) {
       if (decided) return; decided = true;

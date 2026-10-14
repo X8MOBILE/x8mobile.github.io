@@ -33,6 +33,10 @@ pick an area and the salesman who visited them. It goes into the **Area** and
 In **Area**, choosing **Other** opens a box where the customer must type their area;
 the typed name goes into the Sheet.
 
+**Building / complex or block** (optional) is right under Area, for the shopping complex
+name or block (for example "Al Muthanna Complex" or "Block 4"). It goes into the
+**Building / Block** column of the Sheet.
+
 To change the names, edit this line in **strings.js**:
 
     window.X8_STAFF = ["Taj", "Riyas Mangalore", "Ali", "Faheem", "Suhail", "Rizwan", "Yusuf"];
