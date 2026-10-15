@@ -260,8 +260,13 @@ footer .f{line-height:1.4}
         <input class="in" id="areaOther" name="areaOther" type="text" maxlength="40" autocapitalize="words" data-ph="areaPh" enterkeyhint="next" aria-label="Area">
         <p class="err" data-t="errAreaOther" role="alert"></p>
       </div>
+      <div class="field" id="fBlock">
+        <label for="block" data-t="blockLabel">Block</label>
+        <input class="in" id="block" name="block" type="text" inputmode="numeric" maxlength="10" data-ph="blockPh" enterkeyhint="next" required>
+        <p class="err" data-t="errBlock" role="alert"></p>
+      </div>
       <div class="field">
-        <label for="addr"><span data-t="addrLabel">Building / complex or block</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
+        <label for="addr"><span data-t="addrLabel">Building / complex</span> <span class="opt">(<span data-t="optional">optional</span>)</span></label>
         <input class="in" id="addr" name="addr" type="text" maxlength="80" autocapitalize="words" data-ph="addrPh" enterkeyhint="next">
       </div>
       <div class="field">
@@ -496,6 +501,15 @@ footer .f{line-height:1.4}
   }
 
   // ---- phone ----
+  function westernDigits(s) {
+    return String(s || '').replace(/[\u0660-\u0669]/g, function (d) { return d.charCodeAt(0) - 0x0660; })
+      .replace(/[\u06F0-\u06F9]/g, function (d) { return d.charCodeAt(0) - 0x06F0; })
+      .replace(/[\u09E6-\u09EF]/g, function (d) { return d.charCodeAt(0) - 0x09E6; });
+  }
+  // "Block 4", "قطعة ٤", " 4 " -> "4"
+  function blockValue() {
+    return cleanShop(westernDigits($('block').value)).replace(/^(block|blk|b\.?|القطعة|قطعة)\s*/i, '').slice(0, 10);
+  }
   function digits(s) {
     s = String(s || '');
     // convert Arabic-Indic and Eastern Arabic digits
@@ -519,7 +533,7 @@ footer .f{line-height:1.4}
     if (!CFG.sheet || CFG.sheet.indexOf('http') !== 0 || st.dup) return;
     var body = JSON.stringify({
       hp: $('hp').value, t: Date.now() - t0, status: status, saved: saved || '',
-      shop: st.shop, phone: st.phone, area: st.area, address: st.address || '', shopNo: st.shopNo, salesman: st.salesman || '', lang: lang
+      shop: st.shop, phone: st.phone, area: st.area, block: st.block || '', address: st.address || '', shopNo: st.shopNo, salesman: st.salesman || '', lang: lang
     });
     try {
       if (navigator.sendBeacon && navigator.sendBeacon(CFG.sheet, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return;
@@ -601,6 +615,8 @@ footer .f{line-height:1.4}
     if (st.num) $('num').value = st.num;
     if (st.shopNo) $('shopNo').value = st.shopNo;
     if (st.address) $('addr').value = st.address;
+    if (st.block) $('block').value = st.block;
+    $('block').addEventListener('input', function () { $('fBlock').className = 'field'; });
     var by = /[?&]by=([^&#]*)/.exec(location.search);   // optional: link shared by a salesman, ?by=Name
     if (by) { try { st.salesman = cleanShop(decodeURIComponent(by[1].replace(/\+/g, ' '))).slice(0, 40); } catch (e) {} }
     buildStaff();
@@ -633,6 +649,9 @@ footer .f{line-height:1.4}
     $('fAreaOther').className = 'field' + (areaTextBad ? ' bad' : '');
     if (areaBad && !firstBad) firstBad = $('area');
     if (areaTextBad && !firstBad) firstBad = $('areaOther');
+    var blockBad = !/\d/.test(blockValue());
+    $('fBlock').className = 'field' + (blockBad ? ' bad' : '');
+    if (blockBad && !firstBad) firstBad = $('block');
     var salesBad = STAFF.length > 0 && !salesValue();
     $('fSales').className = 'field' + (salesBad ? ' bad' : '');
     if (salesBad && !firstBad) firstBad = $('salesSel');
@@ -640,7 +659,7 @@ footer .f{line-height:1.4}
     errKey = '';
     if (busy) return;
     st.shop = shop; st.cc = p.cc || st.cc || '965'; st.num = $('num').value.replace(/^\s+|\s+$/g, '');
-    st.phone = p.e164; st.area = areaValue(); st.shopNo = cleanShop($('shopNo').value); st.address = cleanShop($('addr').value).slice(0, 80); st.salesman = salesValue(); st.lang = lang;
+    st.phone = p.e164; st.area = areaValue(); st.shopNo = cleanShop($('shopNo').value); st.address = cleanShop($('addr').value).slice(0, 80); st.block = blockValue(); st.salesman = salesValue(); st.lang = lang;
     var decided = false, btn = $('contBtn'), slow = 0, cap = 0;
     function decide(r) {
       if (decided) return; decided = true;
